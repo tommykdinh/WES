@@ -1,0 +1,21 @@
+#BSUB -W 5:10
+#BSUB -o /rsrch6/scratch/lym_myl_rsch/tkdinh/WES/log
+#BSUB -e /rsrch6/scratch/lym_myl_rsch/tkdinh/WES/stderr
+#BSUB -cwd /rsrch6/scratch/lym_myl_rsch/tkdinh/WES
+#BSUB -q medium
+#BSUB -n 12
+#BSUB -M 96G
+#BSUB -R rusage[mem=96]
+#BSUB -N
+#BSUB -u tkdinh@mdanderson.org
+
+module load bwa/0.7.17 
+
+python /rsrch6/scratch/lym_myl_rsch/tkdinh/WES/scripts/run_genome_index_generating.py \
+--threads 12 \
+--input "/rsrch6/scratch/lym_myl_rsch/tkdinh/WES/scripts/input" \
+--genome_dir_human "/rsrch6/scratch/lym_myl_rsch/tkdinh/WES/human_genome_directory" \
+--genome_dir_mouse "/rsrch6/scratch/lym_myl_rsch/tkdinh/WES/mouse_genome_directory" \
+--model "PDX" \
+--sequence "WES"
+

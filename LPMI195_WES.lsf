@@ -1,0 +1,27 @@
+#BSUB -J PDX_WES_dual8_LPMI195_WES
+#BSUB -W 15:00
+#BSUB -o /rsrch6/scratch/lym_myl_rsch/tkdinh/WES/log
+#BSUB -e /rsrch6/scratch/lym_myl_rsch/tkdinh/WES/stderr
+#BSUB -cwd /rsrch6/scratch/lym_myl_rsch/tkdinh/WES
+#BSUB -q medium
+#BSUB -n 12
+#BSUB -M 96G
+#BSUB -R rusage[mem=96G]
+#BSUB -u tkdinh@mdanderson.org
+
+source activate WES
+module load annovar/2020.06.07
+module load R
+
+python /rsrch6/scratch/lym_myl_rsch/tkdinh/WES/scripts/run_preprocessing.py \
+--threads 12 \
+--sequence "WES" \
+--input "/rsrch6/scratch/lym_myl_rsch/tkdinh/WES/input" \
+--sample "LPMI195_WES" \
+--input1 "/rsrch6/scratch/lym_myl_rsch/tkdinh/WES/DUAL8/LPMI195_WES_R1.fastq.gz" \
+--input2 "/rsrch6/scratch/lym_myl_rsch/tkdinh/WES/DUAL8/LPMI195_WES_R2.fastq.gz" \
+--wes_type "IDT" \
+--wes_model "PDX" \
+--output "/rsrch6/scratch/lym_myl_rsch/tkdinh/WES/output" 
+
+conda deactivate
